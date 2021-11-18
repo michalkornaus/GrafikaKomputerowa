@@ -23,7 +23,7 @@ namespace Lab2
             mapa = new Bitmap(pictureBox1.Width, pictureBox1.Height);     
             Line(50, 25, 100, 100, Color.Black);
             MidPointLine(10, 10, 200, 200, Color.Black);
-            MidpointCircle(50, Color.Red);
+           
         }
         void Line(int x0, int y0, int x1, int y1, Color value)
         {
@@ -102,7 +102,7 @@ namespace Lab2
         }
         void Sym8(int x, int y, Color value)
         {
-            int offset = 100;
+            int offset = (int)numericUpDown1.Value + (int)numericUpDown2.Value;
             mapa.SetPixel(x + offset, y + offset, value);
             mapa.SetPixel(y + offset, x + offset, value);
             mapa.SetPixel(y + offset, -x + offset, value);
@@ -111,6 +111,11 @@ namespace Lab2
             mapa.SetPixel(-y + offset, -x + offset, value);
             mapa.SetPixel(-y + offset, x + offset, value);
             mapa.SetPixel(-x + offset, y + offset, value);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MidpointCircle((int)numericUpDown1.Value, Color.Red);
         }
     }
 }
