@@ -23,7 +23,7 @@ namespace Lab2
             mapa = new Bitmap(pictureBox1.Width, pictureBox1.Height);     
             Line(50, 25, 100, 100, Color.Black);
             MidPointLine(10, 10, 200, 200, Color.Black);
-            MidpointCircle(100, Color.Red);
+            MidpointCircle(50, Color.Red);
         }
         void Line(int x0, int y0, int x1, int y1, Color value)
         {
@@ -71,30 +71,46 @@ namespace Lab2
         }
         void MidpointCircle(int radius, Color value)
         {
-            int x, y;
-            float d;
-
+            int x, y, d, deltaE, deltaSE;
             x = 0;
             y = radius;
-            d = 5f / 4f - radius;
-            mapa.SetPixel(x, y, value);
+            d = 1 - radius;
+            deltaE = 3;
+            deltaSE = 5 - radius * 2;
+            Sym8(x, y, value);
             while (y > x)
             {
                 if(d < 0)
                 {
-                    d += x * 2f + 3;
+                    d += deltaE;
+                    deltaE += 2;
+                    deltaSE += 2;
                     x++;
                 }
                 else
                 {
-                    d += (x - y) * 2f + 5;
+                    d += deltaSE;
+                    deltaE += 2;
+                    deltaSE += 4;
                     x++;
                     y--;
                 }
-                mapa.SetPixel(x, y, value);
+                Sym8(x, y, value);
             }
             pictureBox1.Image = mapa;
 
+        }
+        void Sym8(int x, int y, Color value)
+        {
+            int offset = 100;
+            mapa.SetPixel(x + offset, y + offset, value);
+            mapa.SetPixel(y + offset, x + offset, value);
+            mapa.SetPixel(y + offset, -x + offset, value);
+            mapa.SetPixel(x + offset, -y + offset, value);
+            mapa.SetPixel(-x + offset, -y + offset, value);
+            mapa.SetPixel(-y + offset, -x + offset, value);
+            mapa.SetPixel(-y + offset, x + offset, value);
+            mapa.SetPixel(-x + offset, y + offset, value);
         }
     }
 }
