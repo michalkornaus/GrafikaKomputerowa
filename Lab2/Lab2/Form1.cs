@@ -22,7 +22,8 @@ namespace Lab2
         {
             mapa = new Bitmap(pictureBox1.Width, pictureBox1.Height);     
             Line(50, 25, 100, 100, Color.Black);
-            MidPointLine(10, 10, 250, 250, Color.Black);
+            MidPointLine(10, 10, 200, 200, Color.Black);
+            MidpointCircle(100, Color.Red);
         }
         void Line(int x0, int y0, int x1, int y1, Color value)
         {
@@ -66,8 +67,34 @@ namespace Lab2
                 }
                 mapa.SetPixel(x, y, value);
             }
-
             pictureBox1.Image = mapa;
+        }
+        void MidpointCircle(int radius, Color value)
+        {
+            int x, y;
+            float d;
+
+            x = 0;
+            y = radius;
+            d = 5f / 4f - radius;
+            mapa.SetPixel(x, y, value);
+            while (y > x)
+            {
+                if(d < 0)
+                {
+                    d += x * 2f + 3;
+                    x++;
+                }
+                else
+                {
+                    d += (x - y) * 2f + 5;
+                    x++;
+                    y--;
+                }
+                mapa.SetPixel(x, y, value);
+            }
+            pictureBox1.Image = mapa;
+
         }
     }
 }
